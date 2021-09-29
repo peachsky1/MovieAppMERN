@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { API_URL, API_KEY, IMAGE_URL } from "../../Config";
 import MainImage from "./Sections/MainImage";
 import GridCards from "../commons/GridCards";
@@ -8,10 +8,25 @@ function LandingPage() {
   const [Movies, setMovies] = useState([]);
   const [MainMovie, setMainMovie] = useState(null);
   const [CurrentPage, setCurrentPage] = useState(0);
+  const loader = useRef(null);
+
   useEffect(() => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     fetchMovies(endpoint);
   }, []);
+
+  // useEffect(() => {
+  //   var options = {
+  //     root: null,
+  //     rootMargin: "20px",
+  //     threshold: 1.0,
+  //   };
+  //   const observer = new IntersectionObserver(handleObserver, options);
+  //   if (loader.current) {
+  //     observer.observe(loader.current);
+  //   }
+
+  // }, [CurrentPage])
 
   const fetchMovies = (endpoint) => {
     fetch(endpoint)
@@ -26,18 +41,31 @@ function LandingPage() {
       });
   };
 
+  const handleObserver = (entities) => {
+    const target = entities[0];
+    if (target.isIntersecting) {
+      const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
+        CurrentPage + 1
+      }`;
+      fetchMovies(endpoint);
+      // setCurrentPage((currentPage) => CurrentPage + 1);
+    }
+  };
+
   const loadMoreItems = () => {
     const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
       CurrentPage + 1
     }`;
     fetchMovies(endpoint);
   };
+
   return (
     <div style={{ width: "100%", margin: "0" }}>
       {/* {main img} */}
       {MainMovie && (
         <MainImage
           image={`${IMAGE_URL}w1280${MainMovie.backdrop_path}`}
+          movieId={MainMovie.id}
           title={MainMovie.original_title}
           text={MainMovie.overview}
         />
@@ -66,7 +94,9 @@ function LandingPage() {
         </Row>
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <button onClick={loadMoreItems}>More</button>
+        <button onClick={loadMoreItems} ref={loader}>
+          More
+        </button>
       </div>
     </div>
   );
