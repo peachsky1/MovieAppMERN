@@ -88,9 +88,6 @@
     .menu_rigth {
         display: none;
     }
-    .menu__logo a {
-        /* margin-left: -20px; */
-    }
     .menu__container .ant-menu-item,
     .menu__container .ant-menu-submenu-title {
         /* padding: 1px 20px; */
