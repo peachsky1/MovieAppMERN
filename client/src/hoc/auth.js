@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { auth } from "../_actions/user_action";
+import { useSelector, useDispatch } from "react-redux";
+import { auth } from "../_actions/user_actions";
 
 //null - anyone
 //true - user who logged in
 //false - user who is not logged in
 const authWrapper = (SpecificComponent, option, adminRoute = null) => {
   function AuthenticationCheck(props) {
+    let user = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const authWrapper = (SpecificComponent, option, adminRoute = null) => {
         }
       });
     }, []);
-    return <SpecificComponent />;
+    return <SpecificComponent {...props} user={user} />;
   }
   return AuthenticationCheck;
 };
