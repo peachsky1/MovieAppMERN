@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import { API_URL, API_KEY, IMAGE_URL } from "../../Config";
 import MainImage from "./Sections/MainImage";
 import GridCards from "../commons/GridCards";
-import { Row } from "antd";
+import { Row, Button } from "antd";
+import { VerticalAlignBottomOutlined } from "@ant-design/icons";
 function LandingPage() {
   // 20 movie info per req
   const [Movies, setMovies] = useState([]);
@@ -93,10 +94,18 @@ function LandingPage() {
             ))}
         </Row>
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <button onClick={loadMoreItems} ref={loader}>
-          More
-        </button>
+      <div
+        style={{
+          width: "85%",
+          margin: "1rem auto",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Button type="primary" block onClick={loadMoreItems} ref={loader}>
+          EVEN MORE?
+          <VerticalAlignBottomOutlined />
+        </Button>
       </div>
     </div>
   );
