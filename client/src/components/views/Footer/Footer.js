@@ -12,7 +12,7 @@ function Footer() {
         fontSize: "1rem",
       }}
     >
-      Footer
+      ©2021 Hello Movie. All Rights Reserved.
     </div>
   );
 }

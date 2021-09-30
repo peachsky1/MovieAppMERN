@@ -3,7 +3,7 @@ import { API_URL, API_KEY, IMAGE_URL } from "../../Config";
 import MainImage from "./Sections/MainImage";
 import GridCards from "../commons/GridCards";
 import { Row, Button } from "antd";
-import { VerticalAlignBottomOutlined } from "@ant-design/icons";
+import { SmileOutlined } from "@ant-design/icons";
 function LandingPage() {
   // 20 movie info per req
   const [Movies, setMovies] = useState([]);
@@ -103,8 +103,8 @@ function LandingPage() {
         }}
       >
         <Button type="primary" block onClick={loadMoreItems} ref={loader}>
-          EVEN MORE?
-          <VerticalAlignBottomOutlined />
+          WANT MORE?
+          <SmileOutlined spin />
         </Button>
       </div>
     </div>

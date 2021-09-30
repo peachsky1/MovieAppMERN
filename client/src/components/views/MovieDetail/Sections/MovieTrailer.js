@@ -3,7 +3,7 @@ import Iframe from "react-iframe";
 const MovieTrailer = ({ video }) => {
   console.log(video);
   if (!video) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   const videoId = video.id.videoId;
